@@ -9,7 +9,7 @@ namespace mychess_console
         {
             Gameboard gameboard = new Gameboard(8, 8);
 
-
+            Screen.printGameboard(gameboard);
 
         }
     }

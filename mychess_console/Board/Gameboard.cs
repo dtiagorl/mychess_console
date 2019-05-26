@@ -16,5 +16,10 @@ namespace Board
             Columns = columns;
             pieces = new Piece[Rows, Columns];
         }
+
+        public Piece Piece(int row, int column)
+        {
+            return pieces[row, column];
+        }
     }
 }
