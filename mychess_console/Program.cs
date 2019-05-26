@@ -7,11 +7,9 @@ namespace mychess_console
     {
         static void Main(string[] args)
         {
-            Position p;
+            Gameboard gameboard = new Gameboard(8, 8);
 
-            p = new Position(3, 4);
 
-            Console.WriteLine("Position: " + p);
 
         }
     }
