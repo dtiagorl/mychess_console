@@ -1,4 +1,5 @@
 ﻿using System;
+using Board;
 
 namespace mychess_console
 {
@@ -6,7 +7,12 @@ namespace mychess_console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Position p;
+
+            p = new Position(3, 4);
+
+            Console.WriteLine("Position: " + p);
+
         }
     }
 }
