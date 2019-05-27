@@ -15,11 +15,19 @@ namespace mychess_console
                 while (!match.Finished)
                 {
                     Console.Clear();
-                    Screen.printGameboard(match.Gameboard);
+                    Screen.PrintGameboard(match.Gameboard);
 
                     Console.WriteLine();
                     Console.Write("Origin: ");
                     Position origin = Screen.ReadChessPosition().ToPosition();
+
+                    bool[,] possiblePositions = match.Gameboard.Piece(origin).PossibleMovements();
+
+                    Console.Clear();
+                    Screen.PrintGameboard(match.Gameboard, possiblePositions);
+
+                    Console.WriteLine();
+
                     Console.Write("Destination: ");
                     Position destination = Screen.ReadChessPosition().ToPosition();
 
