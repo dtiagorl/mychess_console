@@ -16,6 +16,10 @@ namespace mychess_console
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.Turn);
             Console.WriteLine("Current Player: " + match.CurrentPlayer);
+            if (match.Check)
+            {
+                Console.WriteLine("Check!");
+            }
         }
 
         public static void PrintCapturedPieces(ChessMatch match)
