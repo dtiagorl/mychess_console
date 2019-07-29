@@ -15,10 +15,18 @@ namespace mychess_console
             PrintCapturedPieces(match);
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.Turn);
-            Console.WriteLine("Current Player: " + match.CurrentPlayer);
-            if (match.Check)
+            if (!match.Finished)
             {
-                Console.WriteLine("Check!");
+                Console.WriteLine("Current Player: " + match.CurrentPlayer);
+                if (match.Check)
+                {
+                    Console.WriteLine("Check!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Checkmate!");
+                Console.WriteLine("Winner: " + match.CurrentPlayer);
             }
         }
 
