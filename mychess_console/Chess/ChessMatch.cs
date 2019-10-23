@@ -147,6 +147,21 @@ namespace Chess
                 throw new GameboardException("You cant put yourself in check!");
             }
 
+            Piece p = Gameboard.Piece(destination);
+
+            // Special Movement Promotion
+            if (p is Pawn)
+            {
+                if ((p.Color == Color.White && destination.Row == 0) || (p.Color == Color.Black && destination.Row == 7))
+                {
+                    p = Gameboard.RemovePiece(destination);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(Gameboard, p.Color);
+                    Gameboard.PlacePiece(queen, destination);
+                    pieces.Add(queen);
+                }
+            }
+
             if (IsInCheck(Adversary(CurrentPlayer)))
             {
                 Check = true;
@@ -165,8 +180,6 @@ namespace Chess
                 Turn++;
                 ChangePlayer();
             }
-
-            Piece p = Gameboard.Piece(destination);
 
             // Special Movement EnPassant
             if (p is Pawn && (destination.Row == origin.Row - 2 || destination.Row == origin.Row + 2))
