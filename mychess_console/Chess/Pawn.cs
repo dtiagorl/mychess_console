@@ -7,9 +7,12 @@ namespace Chess
 {
     class Pawn : Piece
     {
-        public Pawn(Gameboard gameboard, Color color) : base(gameboard, color)
-        {
 
+        private ChessMatch match;
+
+        public Pawn(Gameboard gameboard, Color color, ChessMatch match) : base(gameboard, color)
+        {
+            this.match = match;
         }
 
         public override string ToString()
@@ -56,6 +59,22 @@ namespace Chess
                 {
                     mat[pos.Row, pos.Column] = true;
                 }
+
+                // Special Movement En Passant
+                if (Position.Row == 3)
+                {
+                    Position left = new Position(Position.Row, Position.Column - 1);
+                    if (Gameboard.ValidPosition(left) && EnemyExists(left) && Gameboard.Piece(left) == match.enPassantVulnerable)
+                    {
+                        mat[left.Row - 1, left.Column] = true;
+                    }
+                    Position right = new Position(Position.Row, Position.Column + 1);
+                    if (Gameboard.ValidPosition(right) && EnemyExists(right) && Gameboard.Piece(right) == match.enPassantVulnerable)
+                    {
+                        mat[right.Row - 1, right.Column] = true;
+                    }
+                }
+
             }
             else
             {
@@ -78,6 +97,21 @@ namespace Chess
                 if (Gameboard.ValidPosition(pos) && EnemyExists(pos))
                 {
                     mat[pos.Row, pos.Column] = true;
+                }
+
+                // Special Movement En Passant
+                if (Position.Row == 4)
+                {
+                    Position left = new Position(Position.Row, Position.Column - 1);
+                    if (Gameboard.ValidPosition(left) && EnemyExists(left) && Gameboard.Piece(left) == match.enPassantVulnerable)
+                    {
+                        mat[left.Row + 1, left.Column] = true;
+                    }
+                    Position right = new Position(Position.Row, Position.Column + 1);
+                    if (Gameboard.ValidPosition(right) && EnemyExists(right) && Gameboard.Piece(right) == match.enPassantVulnerable)
+                    {
+                        mat[right.Row + 1, right.Column] = true;
+                    }
                 }
             }
 
