@@ -38,6 +38,27 @@ namespace Chess
             {
                 captures.Add(capturedPiece);
             }
+
+            // Special Movement Castling Short
+            if (p is King && destination.Column == origin.Column + 2)
+            {
+                Position originT = new Position(origin.Row, origin.Column + 3);
+                Position destinationT = new Position(origin.Row, origin.Column + 1);
+                Piece T = Gameboard.RemovePiece(originT);
+                T.IncrementMovementsQty();
+                Gameboard.PlacePiece(T, destinationT);
+            }
+
+            // Special Movement Castling Long
+            if (p is King && destination.Column == origin.Column - 2)
+            {
+                Position originT = new Position(origin.Row, origin.Column - 4);
+                Position destinationT = new Position(origin.Row, origin.Column - 1);
+                Piece T = Gameboard.RemovePiece(originT);
+                T.IncrementMovementsQty();
+                Gameboard.PlacePiece(T, destinationT);
+            }
+
             return capturedPiece;
         }
 
@@ -51,6 +72,28 @@ namespace Chess
                 captures.Remove(capturedPiece);
             }
             Gameboard.PlacePiece(p, origin);
+
+
+            // Special Movement Castling Short
+            if (p is King && destination.Column == origin.Column + 2)
+            {
+                Position originT = new Position(origin.Row, origin.Column + 3);
+                Position destinationT = new Position(origin.Row, origin.Column + 1);
+                Piece T = Gameboard.RemovePiece(destinationT);
+                T.DecrementMovementsQty();
+                Gameboard.PlacePiece(T, originT);
+            }
+
+            // Special Movement Castling Long
+            if (p is King && destination.Column == origin.Column - 2)
+            {
+                Position originT = new Position(origin.Row, origin.Column - 4);
+                Position destinationT = new Position(origin.Row, origin.Column - 1);
+                Piece T = Gameboard.RemovePiece(destinationT);
+                T.DecrementMovementsQty();
+                Gameboard.PlacePiece(T, originT);
+            }
+
         }
 
         public void MakeMove(Position origin, Position destination)
@@ -233,7 +276,7 @@ namespace Chess
             PlaceNewPiece('b', 1, new Knight(Gameboard, Color.White));
             PlaceNewPiece('c', 1, new Bishop(Gameboard, Color.White));
             PlaceNewPiece('d', 1, new Queen(Gameboard, Color.White));
-            PlaceNewPiece('e', 1, new King(Gameboard, Color.White));
+            PlaceNewPiece('e', 1, new King(Gameboard, Color.White, this));
             PlaceNewPiece('f', 1, new Bishop(Gameboard, Color.White));
             PlaceNewPiece('g', 1, new Knight(Gameboard, Color.White));
             PlaceNewPiece('h', 1, new Tower(Gameboard, Color.White));
@@ -251,7 +294,7 @@ namespace Chess
             PlaceNewPiece('b', 8, new Knight(Gameboard, Color.Black));
             PlaceNewPiece('c', 8, new Bishop(Gameboard, Color.Black));
             PlaceNewPiece('d', 8, new Queen(Gameboard, Color.Black));
-            PlaceNewPiece('e', 8, new King(Gameboard, Color.Black));
+            PlaceNewPiece('e', 8, new King(Gameboard, Color.Black, this));
             PlaceNewPiece('f', 8, new Bishop(Gameboard, Color.Black));
             PlaceNewPiece('g', 8, new Knight(Gameboard, Color.Black));
             PlaceNewPiece('h', 8, new Tower(Gameboard, Color.Black));
